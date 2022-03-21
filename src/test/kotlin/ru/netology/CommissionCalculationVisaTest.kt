@@ -8,7 +8,7 @@ class CommissionCalculationVisaTest {
     @Test
     fun commission_calculation_visa() {
         val currentPay = 10_000_00
-        val expectedCommission = 75_00
+        val expectedCommission = 175_00
 
         val actualCommission = commissionVisa (currentPay)
 
