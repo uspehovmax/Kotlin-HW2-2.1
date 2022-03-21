@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>main.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kotlin-2hw2.1</a> &gt; <a href="index.source.html" class="el_package">ru.netology</a> &gt; <span class="el_source">main.kt</span></div><h1>main.kt</h1><pre class="source lang-java linenums">package ru.netology
+
+const val maestro = &quot;Maestro&quot;
+const val mastercard = &quot;Mastercard&quot;
+const val visa = &quot;Visa&quot;
+const val mir = &quot;МИР&quot;
+const val vkPay = &quot;VKPay&quot;
+
+const val previousPayMaestro = 75_000_00
+const val previousPayVisa = 100_000_00
+const val previousPayVKPay = 5_000_00
+const val previousPayMir = 30_000_00
+
+const val currentPayMaestro = 2000_00
+const val currentPayVisa = 5_000_00
+const val currentPayVKPay = 10_000_00
+const val currentPayMir = 10_000_00
+
+const val maxTotalPayMaestro = 75000_00
+const val commissionMaestro = 0.006
+const val minCommissionMaestro = 20_00
+
+const val minCommissionVisa = 35_00
+const val commissionVisa = 0.0075
+private var commission = 0
+
+fun main() {
+<span class="nc" id="L28">    commissionCalculation(maestro, previousPayMaestro, currentPayMaestro)  // Maestro</span>
+<span class="nc" id="L29">    commissionCalculation(visa, previousPayVisa, currentPayVisa)     // Visa</span>
+<span class="nc" id="L30">    commissionCalculation(vkPay, previousPayVKPay, currentPayVKPay)    // VKPay</span>
+<span class="nc" id="L31">    commissionCalculation(mastercard, previousPayMaestro, currentPayMaestro)  // Mastercard</span>
+<span class="nc" id="L32">    commissionCalculation(currentPay=currentPayMaestro)  // default</span>
+<span class="nc" id="L33">    commissionCalculation(mir, previousPayMir, currentPayMir)      // МИР</span>
+
+<span class="nc" id="L35">}</span>
+
+<span class="fc" id="L37">fun commissionCalculation(payMethodType: String = &quot;VKPay&quot;, previousPay: Int = 0, currentPay: Int): Int {</span>
+<span class="fc" id="L38">    commission = 0</span>
+<span class="fc bfc" id="L39" title="All 5 branches covered.">    commission = when (payMethodType) {</span>
+<span class="fc" id="L40">        maestro -&gt; commissionMaestro(previousPay, currentPay)</span>
+<span class="fc" id="L41">        mastercard -&gt; commissionMaestro(previousPay, currentPay)</span>
+<span class="fc" id="L42">        visa -&gt; commissionVisa(currentPay)</span>
+<span class="fc" id="L43">        mir -&gt; commissionVisa(currentPay)</span>
+        else -&gt; {
+<span class="fc" id="L45">            0</span>
+        }
+    }
+<span class="fc" id="L48">    printResult(currentPay, commission, payMethodType)</span>
+<span class="fc" id="L49">    return commission</span>
+}
+
+fun commissionMaestro(previousPay: Int, currentPay: Int): Int {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    commission = if ((previousPay + currentPay) &gt; maxTotalPayMaestro)</span>
+<span class="fc" id="L54">        (currentPay * commissionMaestro).toInt() + minCommissionMaestro</span>
+<span class="fc" id="L55">    else 0</span>
+<span class="fc" id="L56">    return commission</span>
+}
+
+fun commissionVisa(currentPay: Int): Int {
+<span class="fc bfc" id="L60" title="All 2 branches covered.">    commission = if ((currentPay * commissionVisa).toInt() &gt; minCommissionVisa)</span>
+<span class="fc" id="L61">        (currentPay * commissionVisa).toInt()</span>
+<span class="fc" id="L62">    else minCommissionVisa</span>
+<span class="fc" id="L63">    return commission</span>
+}
+
+fun printResult(currentPay: Int, commission: Int, payMethodType: String) {
+<span class="fc" id="L67">    println(&quot;Тип оплаты: $payMethodType&quot;)</span>
+<span class="fc" id="L68">    println(&quot;Сумма покупки: ${currentPay / 100} руб. ${currentPay % 100} коп. &quot;)</span>
+<span class="fc" id="L69">    println(&quot;Комиссия: ${commission / 100} руб. ${commission % 100} коп. &quot;)</span>
+<span class="fc" id="L70">    println(&quot;К ОПЛАТЕ: ${(currentPay + commission) / 100} руб. ${(currentPay + commission) % 100} коп.&quot;)</span>
+<span class="fc" id="L71">    println(&quot;---------------------------------------------------&quot;)</span>
+<span class="fc" id="L72">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,8 @@
+/build/classes/
+/build/jacoco/
+/build/test-results/
+/.idea/
+/build/libs/
+/build/kotlin/
+/build/tmp/
+/.gradle/
